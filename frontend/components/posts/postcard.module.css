@@ -1,0 +1,53 @@
+.card__container {
+  width: 340px;
+  height: 100%;
+  border: 1px solid #101010;
+  animation-name: slide;
+  animation-duration: 1s;
+  transition: 0.1s ease-in-out;
+}
+
+.card__container:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #101010;
+  transition: 0.1s ease-in-out;
+}
+
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container__image {
+  padding: 0 30px;
+  margin: 40px auto 25px;
+  width: 280px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.container__text {
+  padding: 0 30px;
+  color: #101010;
+}
+
+.text__date {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.text__body {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

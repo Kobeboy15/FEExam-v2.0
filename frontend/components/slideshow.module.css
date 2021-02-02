@@ -1,0 +1,89 @@
+.slideshow__container {
+  position: relative;
+  height: 666px;
+  animation-name: fadein;
+  animation-duration: 1s;
+  overflow-x: hidden;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slideshow__actions {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.slideshow__image_wrapper {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  animation-name: fadein;
+  animation-duration: 1s;
+}
+
+.image_wrapper__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.container__text {
+  margin-right: 123px;
+  position: absolute;
+  text-align: right;
+}
+
+.text__title {
+  background: #101010;
+  color: #FFF;
+  font-size: 60px;
+  letter-spacing: -5px;
+  display: inline;
+  padding: 12px;
+  line-height: 1.8;
+}
+
+.text__date {
+  font-size: 28px;
+  letter-spacing: 3px;
+  margin-top: 25px;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.actions__arrows {
+  margin: 0 50px;
+  align-self: center;
+  height: 20px;
+  cursor: pointer;
+}
+
+.actions__selector {
+  align-self: flex-end;
+  padding-bottom: 50px;
+  display: flex;
+  grid-gap: 10px;
+}
+
+.actions__selector img {
+  cursor: pointer;
+}
