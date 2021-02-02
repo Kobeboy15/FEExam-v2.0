@@ -11,9 +11,22 @@ import Loading from '../components/loading'
 
 function News() {
 
-  const { loading, data } = useQuery(FETCH_POSTS_QUERY);
   const { isLogin } = useContext(UserContext);
+  const [postItems, setPostItems] = useState([]);
   const [feedLimit, setFeedLimit] = useState(6);
+
+  const { loading, data } = useQuery(FETCH_POSTS_QUERY, {
+    variables: {
+      limit: feedLimit,
+      offset: 0
+    }
+  });
+
+  useEffect(() => {
+    if(data){
+      setPostItems(data.posts);
+    }
+  }, [data])
 
   function updateFeedLimit() {
     setFeedLimit(feedLimit * 2);
@@ -42,20 +55,19 @@ function News() {
         { data && 
           <div className={styles.container__content}>
             {
-              data.posts.filter((item, index) => (index < feedLimit))
-              .map((filteredItem) => 
+              postItems.map((postItem) => 
                 (
                   <Link 
                     href={{
                       pathname: '/posts/[postId]',
-                      query: { postId: filteredItem.id }
+                      query: { postId: postItem.id }
                     }} 
-                    key = {filteredItem.id}>
+                    key = {postItem.id}>
                     <a>
                       <Card 
-                        date = {filteredItem.createdAt}
-                        image = {filteredItem.image}
-                        description = {filteredItem.title}
+                        date = {postItem.createdAt}
+                        image = {postItem.image}
+                        description = {postItem.title}
                       />
                     </a>
                   </Link>
@@ -65,7 +77,7 @@ function News() {
           </div>
         }
         {
-          (data && (data.posts.length > feedLimit)) 
+          (postItems && (postItems.length >= feedLimit)) 
           ? <div className={styles.container__button__wrapper}>
               <button 
                 className={styles.container__button}
@@ -82,8 +94,14 @@ function News() {
 }
 
 const FETCH_POSTS_QUERY = gql`
-  {
-    posts {
+  query posts(
+    $limit: Int,
+    $offset: Int
+  ){
+    posts(pagination:{
+      limit: $limit,
+      offset: $offset
+    }) {
       id title createdAt image
     }
   }
