@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { AUTHENTICATE_USER } from '../repositories/users'
 import UserContext from './UserContext'
 import styles from './login.module.css'
 
@@ -90,17 +90,5 @@ function Login() {
     </div>
   )
 }
-
-const AUTHENTICATE_USER = gql`
-mutation Authenticate(
-  $email: String!
-  $password: String!
-) {
-  authenticate(
-    email: $email
-    password: $password
-  ) 
-}
-`
 
 export default Login;

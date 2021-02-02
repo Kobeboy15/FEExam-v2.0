@@ -3,7 +3,7 @@ import Card from './posts/postcard'
 import styles from './news.module.css'
 import { useState, useEffect, useContext } from 'react'
 import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { FETCH_POSTS_QUERY } from '../repositories/posts';
 import UserContext from './UserContext'
 
 import Loading from '../components/loading'
@@ -92,19 +92,5 @@ function News() {
     )
   }
 }
-
-const FETCH_POSTS_QUERY = gql`
-  query posts(
-    $limit: Int,
-    $offset: Int
-  ){
-    posts(pagination:{
-      limit: $limit,
-      offset: $offset
-    }) {
-      id title createdAt image
-    }
-  }
-`
 
 export default News;

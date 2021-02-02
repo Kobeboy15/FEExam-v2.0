@@ -1,16 +1,14 @@
 import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { FETCH_POST_QUERY, ADD_COMMENT, UPDATE_POST } from '../../repositories/posts'
+import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import UserContext from '../../components/UserContext'
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
-import styles from './viewpost.module.css';
-import { useMutation, useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
-import { useRouter } from 'next/router'
-
 import Loading from '../../components/loading'
-
+import styles from './viewpost.module.css';
 
 
 function ViewPost() {
@@ -34,14 +32,6 @@ function ViewPost() {
       postId: Number(postId) 
     }
   })
-
-  const handleComment = (event) => {
-    setCommentContent(event.target.value);
-  }
-
-  const onChange = (event) => {
-    setTempValues({...tempValues, [event.target.name]: event.target.value});
-  }
 
   const [addComment, { loadingComment }] = useMutation(ADD_COMMENT, {
     update(_,result) {
@@ -78,6 +68,14 @@ function ViewPost() {
       image: imgValue
     }
   })
+
+  const handleComment = (event) => {
+    setCommentContent(event.target.value);
+  }
+
+  const onChange = (event) => {
+    setTempValues({...tempValues, [event.target.name]: event.target.value});
+  }
 
   const handleEditPost = () => {
     console.log(data);
@@ -282,61 +280,5 @@ function ViewPost() {
 export const getServerSideProps = async ({params}) => {
   return {props: {}};
 }
-
-const FETCH_POST_QUERY = gql`
-  query Post($postId: Int!){
-    post(id: $postId) {
-      id 
-      title 
-      content 
-      image 
-      createdAt 
-      comments{
-        id content createdAt
-      }
-    }
-  }
-`
-
-const UPDATE_POST = gql`
-  mutation updatePost(
-    $id: Int!
-    $title:String!
-    $content:String
-    $image:String
-  ){
-    updatePost(
-      post: {
-        id: $id,
-        title: $title,
-        content: $content,
-        image: $image	
-    })
-    {
-      title
-      content 
-      image
-      comments{
-        id content createdAt
-      }
-    }
-  }
-`
-
-const ADD_COMMENT = gql`
-  mutation addComment(
-    $postId: Int!
-    $content: String!
-  ){
-    addComment(
-      postId: $postId,
-      content: $content
-    )
-    {
-      id createdAt content
-    }
-  }
-`
-
 
 export default ViewPost;

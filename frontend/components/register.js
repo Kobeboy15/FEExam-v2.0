@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { REGISTER_USER, AUTHENTICATE_USER } from '../repositories/users'
 import UserContext from './UserContext'
 import styles from './Register.module.css'
 
@@ -113,29 +113,5 @@ function Register() {
     </div>
   )
 }
-
-const REGISTER_USER = gql`
-  mutation Register(
-    $email: String!
-    $password: String!
-  ) {
-    register(
-      email: $email
-      password: $password
-    ) 
-  }
-`
-
-const AUTHENTICATE_USER = gql`
-mutation Authenticate(
-  $email: String!
-  $password: String!
-) {
-  authenticate(
-    email: $email
-    password: $password
-  ) 
-}
-`
 
 export default Register;
