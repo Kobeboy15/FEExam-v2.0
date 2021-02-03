@@ -1,4 +1,4 @@
-# L I G Frontend Exam
+# Frontend Exam
 
 Frontend exam for LIG applicants.
 
