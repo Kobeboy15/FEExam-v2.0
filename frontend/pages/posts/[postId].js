@@ -14,9 +14,10 @@ import styles from './viewpost.module.css';
 function ViewPost() {
   const uploadImage = useRef(null);
   const router = useRouter();
-  const { postId } = router.query;
-  const [postDetails, setPostDetails] = useState({});
   const { isLogin } = useContext(UserContext);
+  const { postId } = router.query;
+  
+  const [postDetails, setPostDetails] = useState({});
   const [isEditing, setEditStatus] = useState(false);
   const [imgValue, setImgValue] = useState('');
   const [commentContent, setCommentContent] = useState('');
@@ -42,7 +43,6 @@ function ViewPost() {
         createdAt: result.data.addComment.createdAt
       }
       commentArray.unshift(newComment);
-      setCommentContent('');
       setPostDetails({...postDetails, ['comments']: commentArray});
     },
     onError(err) {

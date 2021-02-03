@@ -53,7 +53,11 @@ function Register() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    addUser();
+    if(values.password == values.confirmPassword){
+      addUser();
+    } else {
+      alert("Password doesn't Match.")
+    }
   }
 
   return (
@@ -74,26 +78,31 @@ function Register() {
               className={styles.login__textbox}
               value={values.email}
               onChange={onChange}
+              required
             />
           </div>
           <div className={styles.input__login}>
             <p className={styles.login__text}>Password</p>
             <input 
+              id="password"
               type="password" 
               name="password"
               className={styles.login__textbox}
               value={values.password}
               onChange={onChange}
+              required
             />
           </div>
           <div className={styles.input__login}>
             <p className={styles.login__text}>Confirm Password</p>
-            <input 
+            <input
+              id="confirm_password"
               type="password"
               name="confirmPassword" 
               className={styles.login__textbox}
               value={values.confirmPassword}
-              onChange={onChange}  
+              onChange={onChange}
+              required
             />
           </div>
           <button

@@ -11,12 +11,6 @@ import gql from 'graphql-tag'
 function CreatePost() {
   const router = useRouter()
   const uploadImage = useRef(null);
-
-  useEffect(() => {
-    let date = new Date().toJSON().slice(0,10).replace(/-/g,'-');
-    setDateToday(date);
-  }, [])
-
   const [dateToday, setDateToday] = useState('');
   const [values, setValues] = useState({
     title: '',
@@ -46,7 +40,6 @@ function CreatePost() {
       image: values.image
     }
   })
-
 
   const cancelEditPost = (e) => {
     let Answer = confirm("Are you sure you want to cancel?");
@@ -82,6 +75,11 @@ function CreatePost() {
       })
     }
   }
+
+  useEffect(() => {
+    let date = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    setDateToday(date);
+  }, [])
 
 
   return (

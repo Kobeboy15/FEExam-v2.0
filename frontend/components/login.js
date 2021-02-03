@@ -9,7 +9,6 @@ import styles from './login.module.css'
 function Login() {
   const router = useRouter();
   const { setLogin } = useContext(UserContext);
-
   const [error, setError] = useState({});
   const [values, setValues] = useState({
     email: '',
@@ -29,6 +28,7 @@ function Login() {
       }
     },
     onError(err){
+      console.log(err);
       setError(err.graphQLErrors[0].extensions.exception.errors);
     },
     variables: {
@@ -41,7 +41,6 @@ function Login() {
     event.preventDefault();
     authenticateUser();
   }
-  
 
   return (
     <div className={styles.login__container}>
@@ -61,6 +60,7 @@ function Login() {
               className={styles.login__textbox}
               value={values.email}
               onChange={onChange}
+              required
             />
           </div>
           <div className={styles.input__login}>
@@ -70,7 +70,8 @@ function Login() {
               name="password"
               className={styles.login__textbox}
               value={values.password}
-              onChange={onChange}  
+              onChange={onChange}
+              required
             />
           </div>
           <button 
