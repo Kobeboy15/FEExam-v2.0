@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react'
 import { useMutation, useQuery } from '@apollo/react-hooks'
-import { FETCH_POST_QUERY, ADD_COMMENT, UPDATE_POST } from '../../repositories/posts'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
+import { FETCH_POST_QUERY, ADD_COMMENT, UPDATE_POST } from '../../repositories/posts'
 import UserContext from '../../components/UserContext'
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
@@ -134,6 +134,7 @@ function ViewPost() {
   useEffect(() => {
     if(data){
       setPostDetails(data.post);
+      document.title = `${data.post.title} - BLOG`;
     }
   }, [data])
 
@@ -149,7 +150,7 @@ function ViewPost() {
         { postDetails &&
           <div className={styles.viewpost__container}>
             <Navbar />
-            { postDetails.title ?
+            { postDetails.title &&
               <div className={styles.navigation__header}>
                 <div className={styles.navigation__content}>
                   <Link href="/">
@@ -159,10 +160,9 @@ function ViewPost() {
                   <p>&nbsp;{postDetails.title}</p>
                 </div>
               </div>
-              : null
             }
             <div className={styles.navigation__body}>
-              { isLogin ?
+              { isLogin &&
                 <div className={styles.body__action}>
                   { isEditing ?
                   <div className={styles.action__container}>
@@ -182,9 +182,8 @@ function ViewPost() {
                     >Edit Post</p>
                   }
                 </div>
-                : null
               }
-              { postDetails ?
+              { postDetails &&
                 <div className={styles.body__details}>
                   <p className={styles.details__date}>
                     {postDetails.createdAt ? data.post.createdAt.slice(0,10) : null}
@@ -200,8 +199,7 @@ function ViewPost() {
                     />
                   }
                   <div className={styles.details__container}>
-                    { isEditing 
-                      ? 
+                    { isEditing && 
                       <div className={styles.details__}>
                         <button
                           className={styles.details__upload_image}
@@ -217,7 +215,6 @@ function ViewPost() {
                           hidden
                         />
                       </div>
-                      : null
                     }
                     <img
                       className={styles.details__image} 
@@ -236,12 +233,11 @@ function ViewPost() {
                       />
                   }
                 </div>
-                : null
               }
               <hr />
               <div className={styles.body__comments}>
                 <h2 className={styles.comments__title}>COMMENT</h2>
-                { postDetails.comments ?
+                { postDetails.comments &&
                   postDetails.comments.map((comment) => {
                     return(
                       <div key={comment.id} className={styles.comments__item}>
@@ -250,7 +246,6 @@ function ViewPost() {
                       </div>
                     )
                   })
-                  : null
                 }
                 <div className={styles.comments__input}>
                   <textarea

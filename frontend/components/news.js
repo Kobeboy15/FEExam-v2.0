@@ -43,16 +43,15 @@ function News() {
       <div className={styles.news__container}>
         <div className={styles.container__title}>
           <h2 className={styles.title__text}>News</h2>
-          { isLogin ?
+          { isLogin &&
             <Link href="/posts/createpost">
               <a className={styles.title__newpost}>
                 Create New Post
               </a>
             </Link>
-            : null
           }
         </div>
-        { data && 
+        { postItems && 
           <div className={styles.container__content}>
             {
               postItems.map((postItem) => 
@@ -78,7 +77,7 @@ function News() {
         }
         {
           (postItems && (postItems.length >= feedLimit)) 
-          ? <div className={styles.container__button__wrapper}>
+          && <div className={styles.container__button__wrapper}>
               <button 
                 className={styles.container__button}
                 onClick={updateFeedLimit}
@@ -86,7 +85,6 @@ function News() {
                 Load More
               </button>
             </div>
-          : null
         }
       </div>
     )

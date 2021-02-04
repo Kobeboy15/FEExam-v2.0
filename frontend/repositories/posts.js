@@ -29,6 +29,24 @@ const FETCH_POST_QUERY = gql`
   }
 `
 
+const ADD_POST = gql`
+  mutation addPost(
+    $title:String!
+    $content:String!
+    $image:String!
+  ){
+    addPost(
+      post: {
+        title: $title,
+        content: $content,
+        image: $image	
+    })
+    {
+      id
+    }
+  }
+`
+
 const UPDATE_POST = gql`
   mutation updatePost(
     $id: Int!
@@ -69,4 +87,4 @@ const ADD_COMMENT = gql`
   }
 `
 
-export { FETCH_POSTS_QUERY, FETCH_POST_QUERY, UPDATE_POST, ADD_COMMENT };
+export { FETCH_POSTS_QUERY, FETCH_POST_QUERY, ADD_POST, UPDATE_POST, ADD_COMMENT };

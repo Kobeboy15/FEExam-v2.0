@@ -4,9 +4,8 @@ import { useState, useRef, useContext, useEffect } from 'react'
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import styles from './viewpost.module.css';
-
 import { useMutation } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
+import { ADD_POST } from '../../repositories/posts'
 
 function CreatePost() {
   const router = useRouter()
@@ -77,6 +76,7 @@ function CreatePost() {
   }
 
   useEffect(() => {
+    document.title = "Create New Post - BLOG"
     let date = new Date().toJSON().slice(0,10).replace(/-/g,'-');
     setDateToday(date);
   }, [])
@@ -153,23 +153,5 @@ function CreatePost() {
     </div>
   )
 }
-
-const ADD_POST = gql`
-  mutation addPost(
-    $title:String!
-    $content:String!
-    $image:String!
-  ){
-    addPost(
-      post: {
-        title: $title,
-        content: $content,
-        image: $image	
-    })
-    {
-      id
-    }
-  }
-`
 
 export default CreatePost;

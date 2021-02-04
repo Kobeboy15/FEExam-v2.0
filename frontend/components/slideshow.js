@@ -81,33 +81,32 @@ export default function SlideShow() {
 
   return (
     <div className={styles.slideshow__container}>
-      { slideImages
-        ? <div className={styles.slideshow__actions}>
-            <img 
-              src="images/left.svg" 
-              alt="left arrow" 
-              className={styles.actions__arrows}
-              onClick={prevImage}
-            />
-            <div className={styles.actions__selector}>
-              {
-                slideImages.map((item, index) => {
-                    if(index == currentIndex) {
-                      return <img key={index} src="images/CircleDark.svg" />
-                    } else {
-                      return <img key={index} src="images/CircleLight.svg" onClick={() => changePage(index)}/>
-                    }
-                })
-              }
-            </div>
-            <img 
-              src="images/right.svg" 
-              alt="right arrow" 
-              className={styles.actions__arrows}
-              onClick={nextImage}
-            />
+      { slideImages && 
+        <div className={styles.slideshow__actions}>
+          <img 
+            src="images/left.svg" 
+            alt="left arrow" 
+            className={styles.actions__arrows}
+            onClick={prevImage}
+          />
+          <div className={styles.actions__selector}>
+            {
+              slideImages.map((item, index) => {
+                  if(index == currentIndex) {
+                    return <img key={index} src="images/CircleDark.svg" />
+                  } else {
+                    return <img key={index} src="images/CircleLight.svg" onClick={() => changePage(index)}/>
+                  }
+              })
+            }
           </div>
-        : null
+          <img 
+            src="images/right.svg" 
+            alt="right arrow" 
+            className={styles.actions__arrows}
+            onClick={nextImage}
+          />
+        </div>
       }
       { slideImages.length > 0
       ? <div className={styles.slideshow__image_wrapper}>
