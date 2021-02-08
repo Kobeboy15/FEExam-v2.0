@@ -258,7 +258,7 @@ function ViewPost() {
                   <input 
                     type="button" 
                     value="Submit"
-                    onClick={addComment}
+                    onClick={() => { commentContent && addComment() }}
                     className={styles.input__submit}
                   />
                 </div>
